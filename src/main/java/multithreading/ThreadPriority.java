@@ -4,8 +4,8 @@ class ThreadPriorityDemo extends Thread{
     @Override
     public void run() {
         System.out.println("Current thead is : " + Thread.currentThread().getName());
-        for (int i = 0; i < 200; i++) {
-            System.out.println(i);
+        for (int i = 0; i < 30; i++) {
+            System.out.print(i);
         }
     }
 }
