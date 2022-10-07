@@ -31,7 +31,6 @@ public class ThreadPool {
         for (int threadCounter = 0; threadCounter < 10; threadCounter++) {
             MyThread myThread = new MyThread("thread-" + threadCounter);
             executorService.execute(myThread);
-//            myThread.start();
         }
     }
 }
