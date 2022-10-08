@@ -1,15 +1,12 @@
 package reflection;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 public class ReflectionDemo {
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
-        Object personObject = new Person("Max", "Asadi", 37);
+        Object personObject = new Person("Tomas", "Anderson", 30);
 
         //Create class from object
         Class<?> personClass = personObject.getClass();
@@ -47,6 +44,21 @@ public class ReflectionDemo {
         for (Method personMethod: personMethods) {
             System.out.println(personMethod);
         }
+
+        //Using parameterized constructor to create an object of the Person class
+        Constructor<?> personParameterizedConstructor = personClassFromName.getDeclaredConstructor(String.class, String.class, int.class);
+        Object person = personParameterizedConstructor.newInstance("David", "Wills", 20);
+        if(person instanceof Person){
+            System.out.println("An object of the Person class is created by using parameterized constructor");
+        }
+
+        //Get access to a private method of Person class
+        Method getFullNameMethod = personClassFromName.getDeclaredMethod("getFullName");
+        if(Modifier.isPrivate(getFullNameMethod.getModifiers())){
+            getFullNameMethod.setAccessible(true);
+        }
+        System.out.println("Person full name is: " + getFullNameMethod.invoke(person));
+
     }
 
 }
